@@ -141,12 +141,16 @@ func ReadFiles(paths []string) ([]*File, error) {
 
 // NewReader returns a new ACH Reader that reads from r.
 func NewReader(r io.Reader) *Reader {
+	return NewReaderWithEncoding(r, "text/plain")
+}
+
+func NewReaderWithEncoding(r io.Reader, encoding string) *Reader {
 	out := &Reader{
 		maxLines: defaultMaxLines,
 	}
 
 	// charset.Reader will decode windows-1252 strings into utf-8 automatically.
-	rr, err := charset.NewReader(r, "text/plain")
+	rr, err := charset.NewReader(r, encoding)
 	if err != nil {
 		// Fake an empty reader if we read nothing
 		if err == io.EOF || err == io.ErrUnexpectedEOF {
