@@ -1,4 +1,4 @@
-module github.com/ckbaum/ach
+module github.com/moov-io/ach
 
 go 1.21
 
